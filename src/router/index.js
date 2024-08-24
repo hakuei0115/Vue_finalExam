@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Swal from 'sweetalert2'
 import UserLogin from '@/views/UserLogin.vue'
+import UserRegister from '@/views/UserRegister.vue'
+import TodoList from '@/views/TodoList.vue'
 
 const routes = [
   {
@@ -8,11 +11,19 @@ const routes = [
   },
   {
     path: '/login',
-    component: UserLogin
+    name: 'Login',
+    component: UserLogin,
+    meta: { title: '線上代辦事項服務 | 登入' }
   },
   {
-    path: '/UserRegister',
-
+    path: '/register',
+    component: UserRegister,
+    meta: { title: '線上代辦事項服務 | 註冊' }
+  },
+  {
+    path: '/dashboard',
+    component: TodoList,
+    meta: { requiresAuth: true, title: '線上代辦事項服務 | 主頁' }
   }
 ]
 
@@ -29,7 +40,14 @@ router.beforeEach((to, form, next) => {
   }
 
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
-    next({ name: 'Login' });
+    Swal.fire({
+      title: '請先登入',
+      icon: 'warning',
+      confirmButtonText: '確定'
+    })
+    .then(() => {
+      next({ name: 'Login' });
+    });
   } else {
     next();
   }
