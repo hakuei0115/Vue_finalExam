@@ -1,0 +1,25 @@
+{
+  "name": "vue-finalexam",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --base=/Vue_finalExam/",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "deploy": "vite build && gh-pages -d dist"
+  },
+  "dependencies": {
+    "gh-pages": "^6.1.1",
+    "sweetalert2": "^11.12.4",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.23.0",
+    "vite": "^5.3.1"
+  }
+}
