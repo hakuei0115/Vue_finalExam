@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Swal from 'sweetalert2'
 import UserLogin from '@/views/UserLogin.vue'
 import UserRegister from '@/views/UserRegister.vue'
-import TodoList from '@/views/TodoList.vue'
+import Dashboard from '@/views/UserDashboard.vue'
 
 const routes = [
   {
@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: '/dashboard',
-    component: TodoList,
+    component: Dashboard,
     meta: { requiresAuth: true, title: '線上代辦事項服務 | 主頁' }
   }
 ]

@@ -69,6 +69,12 @@
           .then(() => {
             router.push('/dashboard');
           })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: data.message,
+          })
         }
     })
   }
