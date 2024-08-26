@@ -23,7 +23,7 @@
                         </li>
                     </ul>
                     <div class="todoList_statistics">
-                        <p> {{ finishTodo }} 個已完成項目</p>
+                        <p> {{ toBeFinishTodo }} 個待完成項目</p>
                     </div>
                 </div>
             </div>
@@ -165,8 +165,8 @@
         }
     });
 
-    const finishTodo = computed(() => {
-        return todoList.value.filter((todo) => todo.status === true).length;
+    const toBeFinishTodo = computed(() => {
+        return filteredTodoList.value.filter((todo) => todo.status === false).length;
     });
 
     onMounted(() => {

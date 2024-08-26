@@ -8,7 +8,7 @@
     "build": "vite build --base=/Vue_finalExam/",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "deploy": "vite build && gh-pages -d dist"
+    "deploy": "vite build --base=/Vue_finalExam/ && gh-pages -d dist"
   },
   "dependencies": {
     "gh-pages": "^6.1.1",
