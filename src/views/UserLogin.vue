@@ -12,8 +12,8 @@
           <VField class="formControls_input" type="text" name="email" placeholder="請輸入 email" rules="required|email"></VField>
           <ErrorMessage name="email"/>
           <label class="formControls_label" for="pwd">密碼</label>
-          <VField class="formControls_input" type="password" name="pwd" placeholder="請輸入密碼" rules="required|min:8"></VField>
-          <ErrorMessage name="pwd"/>
+          <VField class="formControls_input" type="password" name="password" placeholder="請輸入密碼" rules="required|min:8"></VField>
+          <ErrorMessage name="password"/>
           <button class="formControls_btnSubmit" type="submit" :disabled="!meta.valid">登入</button>
         </VForm>
       </div>
@@ -35,7 +35,7 @@
       },
       body: JSON.stringify({
         email: value.email,
-        password: value.pwd,
+        password: value.password,
       }),
     })
       .then((response) => response.json())
