@@ -14,7 +14,7 @@
 <script setup>
     import { useRouter } from 'vue-router';
     import TodoList from '@/components/TodoList.vue';
-    import Swal from 'sweetalert2';
+    import showAlert from '@/utils/showAlert';
 
     const router = useRouter();
     const nickName = sessionStorage.getItem('nickname');
@@ -30,25 +30,16 @@
             .then((res) => res.json())
             .then((res) => {
                 if (res.status) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '登出成功',
+                    showAlert('success', '登出成功', '你已成功登出', '確定', {
                         showConfirmButton: false,
                         timer: 1500
-                    })
-                        .then(() => {
-                            sessionStorage.removeItem('token');
-                            sessionStorage.removeItem('nickname');
-
-                            router.push('/login');
-                        });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: '登出失敗',
-                        showCloseButton: true,
-                        text: res.message
+                    }).then(() => {
+                        sessionStorage.removeItem('token');
+                        sessionStorage.removeItem('nickname');
+                        router.push('/login');
                     });
+                } else {
+                    showAlert('error', '登出失敗', res.message, 'OK');
                 }
             });
     }

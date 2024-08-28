@@ -26,7 +26,7 @@
 <script setup>
   import { ref, computed } from 'vue'
   import { useRouter } from 'vue-router'
-  import Swal from 'sweetalert2'
+  import showAlert from '@/utils/showAlert';
 
   const router = useRouter()
 
@@ -37,11 +37,8 @@
 
   const login = async () => {
     if (username.value === '' || password.value === '') {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: '請輸入帳號密碼',
-      })
+      showAlert('error', 'Oops...', '請輸入帳號密碼', 'OK');
+      return;
     }
 
     await fetch('https://todolist-api.hexschool.io/users/sign_in', {
@@ -60,21 +57,14 @@
           sessionStorage.setItem('token', data.token);
           sessionStorage.setItem('nickname', data.nickname);
 
-          Swal.fire({
-            icon: 'success',
-            title: '登入成功',
+          showAlert('success', '登入成功', '登入成功', '確定', {
             showConfirmButton: false,
-            timer: 1500,
-          })
-          .then(() => {
+            timer: 1500
+          }).then(() => {
             router.push('/dashboard');
-          })
+          });
         } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: data.message,
-          })
+          showAlert('error', 'Oops...', data.message, 'OK');
         }
     })
   }

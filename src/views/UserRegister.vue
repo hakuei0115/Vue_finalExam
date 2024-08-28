@@ -41,7 +41,7 @@
 <script setup>
     import { ref, computed } from 'vue'
     import { useRouter } from 'vue-router'
-    import Swal from 'sweetalert2';
+    import showAlert from '@/utils/showAlert';
 
     const router = useRouter();
 
@@ -54,11 +54,7 @@
     
     const registerUser = async () => {
         if (!isPasswordMatch.value) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Passwords do not match',
-            });
+            showAlert('error', 'Oops...', 'Passwords do not match', 'OK');
             return;
         }
 
@@ -76,29 +72,18 @@
         .then((response) => response.json())
         .then((res) => {
             if (res.status === true) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Registration successful',
+                showAlert('success', 'Registration successful', 'Registration successful', 'OK', {
                     showConfirmButton: false,
                     timer: 1500
-                })
-                .then(() => {
-                    router.push('/login')
+                }).then(() => {
+                    router.push('/login');
                 });
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Registration failed',
-                    text: res.message
-                });
+                showAlert('error', 'Registration failed', res.message, 'OK');
             }
         })
         .catch((error) => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Registration failed',
-                text: error.message
-            });
+            showAlert('error', 'Registration failed', error.message, 'OK');
         });
     }
 </script>

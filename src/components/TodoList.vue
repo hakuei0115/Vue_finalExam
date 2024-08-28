@@ -33,7 +33,7 @@
 
 <script setup>
     import { ref, onMounted, computed } from 'vue';
-    import Swal from 'sweetalert2';
+    import showAlert from '@/utils/showAlert';
 
     const inputValue = ref('');
     const activeTab = ref('all');
@@ -54,21 +54,13 @@
             todoList.value = res.data;
         })
         .catch((err) => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: err.message
-            });
+            showAlert('error', 'Error', err.message, 'OK');
         });
     }
 
     const addTodo = async () => {
         if (inputValue.value === '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Empty input',
-                text: 'Please enter a new todo'
-            });
+            showAlert('error', 'Empty input', 'Please enter a new todo', 'OK');
             return;
         }
 
@@ -87,19 +79,14 @@
             if (res.status) {
                 getTodo();
                 inputValue.value = '';
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Add new todo success'
-                });
+                showAlert('success', 'Success', 'Add new todo success', 'OK');
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: res.message
-                });
+                showAlert('error', 'Error', res.message, 'OK');
             }
         })
+        .catch((err) => {
+            showAlert('error', 'Error', err.message, 'OK');
+        });
     }
 
     const toggleTodo = async (id) => {
@@ -114,19 +101,11 @@
         .then((res) => {
             if (res.status) {
                 getTodo();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Todo status updated'
-                });
+                showAlert('success', 'Success', 'Todo status updated', 'OK');
             }
         })
         .catch((err) => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: err.message
-            });
+            showAlert('error', 'Error', err.message, 'OK');
         });
     }
 
@@ -143,11 +122,7 @@
             getTodo();
         })
         .catch((err) => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: err.message
-            });
+            showAlert('error', 'Error', err.message, 'OK');
         });
     }
 
