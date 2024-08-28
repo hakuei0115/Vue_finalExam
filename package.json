@@ -11,8 +11,11 @@
     "deploy": "vite build --base=/Vue_finalExam/ && gh-pages -d dist"
   },
   "dependencies": {
+    "@vee-validate/i18n": "^4.13.2",
+    "@vee-validate/rules": "^4.13.2",
     "gh-pages": "^6.1.1",
     "sweetalert2": "^11.12.4",
+    "vee-validate": "^4.13.2",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
