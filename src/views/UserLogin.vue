@@ -8,13 +8,20 @@
       <div>
         <VForm class="formControls" v-slot="{ meta }" @submit="login">
           <h2 class="formControls_txt">最實用的線上代辦事項服務</h2>
+
           <label class="formControls_label" for="email">Email</label>
           <VField class="formControls_input" type="text" name="email" placeholder="請輸入 email" rules="required|email"></VField>
           <ErrorMessage name="email"/>
+
           <label class="formControls_label" for="pwd">密碼</label>
           <VField class="formControls_input" type="password" name="password" placeholder="請輸入密碼" rules="required|min:8"></VField>
           <ErrorMessage name="password"/>
+
           <button class="formControls_btnSubmit" type="submit" :disabled="!meta.valid">登入</button>
+          
+          <router-link to="/register">
+            <a class="formControls_btnLink">註冊帳號</a>
+          </router-link>
         </VForm>
       </div>
     </div>
