@@ -24,6 +24,10 @@ const routes = [
     path: '/dashboard',
     component: Dashboard,
     meta: { requiresAuth: true, title: '線上代辦事項服務 | 主頁' }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/login'
   }
 ]
 
