@@ -34,6 +34,7 @@
 <script setup>
     import { ref, onMounted, computed } from 'vue';
     import showAlert from '@/utils/showAlert';
+    import myFetch from '@/utils/fetchTool';
 
     const inputValue = ref('');
     const activeTab = ref('all');
@@ -42,20 +43,13 @@
     const todoList = ref([]);
 
     const getTodo = async () => {
-        await fetch(api, {
-            method: 'GET',
-            headers: {
-                'Authorization': sessionStorage.getItem('token'),
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((res) => res.json())
-        .then((res) => {
-            todoList.value = res.data;
-        })
-        .catch((err) => {
-            showAlert('error', 'Error', err.message, 'OK');
-        });
+        try {
+            const data = await myFetch(api, 'GET', sessionStorage.getItem('token'));
+
+            todoList.value = data.data;
+        } catch (error) {
+            showAlert('error', 'Error', error.message, 'OK');
+        }
     }
 
     const addTodo = async () => {
@@ -64,29 +58,21 @@
             return;
         }
 
-        await fetch(api, {
-            method: 'POST',
-            headers: {
-                'Authorization': sessionStorage.getItem('token'),
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
+        try {
+            const data = await myFetch(api, 'POST', sessionStorage.getItem('token'), {
                 'content': inputValue.value
-            })
-        })
-        .then((res) => res.json())
-        .then((res) => {
-            if (res.status) {
+            });
+            
+            if (data.status) {
                 getTodo();
                 inputValue.value = '';
                 showAlert('success', 'Success', 'Add new todo success', 'OK');
             } else {
-                showAlert('error', 'Error', res.message, 'OK');
+                showAlert('error', 'Error', data.message, 'OK');
             }
-        })
-        .catch((err) => {
-            showAlert('error', 'Error', err.message, 'OK');
-        });
+        } catch (error) {
+            showAlert('error', 'Error', error.message, 'OK');
+        }
     }
 
     const toggleTodo = async (id) => {
