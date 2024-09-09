@@ -1,7 +1,7 @@
 let canFetch = true; // 初始化可以進行 fetch 的狀態
 
 const myFetch = async (url, method, token = '', body = null) => {
-    if (!canFetch) return
+    if (!canFetch) throw new Error('You click too fast!');
 
     canFetch = false;
 
